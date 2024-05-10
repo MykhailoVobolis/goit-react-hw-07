@@ -9,7 +9,7 @@ import css from "./ContactForm.module.css";
 
 // Валідація полів форми
 const regex = {
-  phoneNumber: /^[0-9]{3}[-]{1}[0-9]{2}[-]{1}[0-9]{2}$/, // Регулярні вираз для поля форми Number
+  phoneNumber: /^[0-9]{3}[-]{1}[0-9]{3}[-]{1}[0-9]{4}$/, // Регулярні вираз для поля форми Number
 };
 
 // Об'єкт Yup валідації полів форми
@@ -18,7 +18,7 @@ const FeedbackSchema = Yup.object().shape({
   phone: Yup.string()
     .min(3, "Too Short!")
     .max(50, "Too Long!")
-    .matches(regex.phoneNumber, "Number format: 000-00-00")
+    .matches(regex.phoneNumber, "Number format: 000-000-0000")
     .required("Required"),
 });
 
