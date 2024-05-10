@@ -2,8 +2,8 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useId } from "react";
 
+import { addContact } from "../../redux/contactsOps";
 import { useDispatch } from "react-redux";
-import { addContact } from "../../redux/contactsSlice";
 
 import css from "./ContactForm.module.css";
 
@@ -15,7 +15,7 @@ const regex = {
 // Об'єкт Yup валідації полів форми
 const FeedbackSchema = Yup.object().shape({
   name: Yup.string().min(3, "Too Short!").max(50, "Too Long!").required("Required"),
-  phone: Yup.string()
+  number: Yup.string()
     .min(3, "Too Short!")
     .max(50, "Too Long!")
     .matches(regex.phoneNumber, "Number format: 000-000-0000")
@@ -26,12 +26,12 @@ export default function ContactForm() {
   const dispatch = useDispatch();
 
   const nameFieldId = useId(); // Створення ідентифікаторів
-  const phoneFieldId = useId(); // поліив форми
+  const numberFieldId = useId(); // поліив форми
 
   // Початкове значення полів форми
   const initialValues = {
     name: "",
-    phone: "",
+    number: "",
   };
 
   const handleSubmit = (values, actions) => {
@@ -49,9 +49,9 @@ export default function ContactForm() {
             <ErrorMessage className={css.error} name="name" component="span" />
           </div>
           <div className={css.inputContainer}>
-            <label htmlFor={phoneFieldId}>Number</label>
-            <Field className={css.inputValue} type="tel" name="phone" />
-            <ErrorMessage className={css.error} name="phone" component="span" />
+            <label htmlFor={numberFieldId}>Number</label>
+            <Field className={css.inputValue} type="tel" name="number" />
+            <ErrorMessage className={css.error} name="number" component="span" />
           </div>
           <button className={css.btnAdd} type="submit">
             Add contact
